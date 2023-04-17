@@ -4502,6 +4502,45 @@ void SpellMgr::LoadSpellInfoCorrections()
         spellInfo->AttributesEx |= SPELL_ATTR1_NO_REFLECTION;
     });
 
+
+    ApplySpellFix({ 5225, 20719, 62600 }, [](SpellInfo* spellInfo) // Set these spells as belonging to Druid
+    {
+        spellInfo->SpellFamilyName = SPELLFAMILY_DRUID;
+    });
+
+    ApplySpellFix({ 53342, 54447, 3714, 62158, 53344, 54446, 53331, 70164, 53323}, [](SpellInfo* spellInfo) // Set these spells as belonging to DK
+    {
+        spellInfo->SpellFamilyName = SPELLFAMILY_DEATHKNIGHT;
+    });
+    ///
+
+    //
+    ApplySpellFix({34769}, [](SpellInfo* spellInfo) // Set these spells as belonging to Paladin
+    {
+        spellInfo->SpellFamilyName = SPELLFAMILY_PALADIN;
+    });
+
+    ApplySpellFix({ 2836 }, [](SpellInfo* spellInfo) // Set these spells as belonging to DK
+    {
+        spellInfo->SpellFamilyName = SPELLFAMILY_ROGUE;
+    });
+        ApplySpellFix({ 66842, 66843, 66844, 6196 }, [](SpellInfo* spellInfo) // Set these spells as belonging to Druid
+    {
+        spellInfo->SpellFamilyName = SPELLFAMILY_SHAMAN;
+    });
+    //
+
+    ApplySpellFix({ 47524, 29858, 4490}, [](SpellInfo* spellInfo) // Set these spells as belonging to DK
+    {
+        spellInfo->SpellFamilyName = SPELLFAMILY_WARLOCK;
+    });
+
+    ApplySpellFix({ 6197, 1462, 19885}, [](SpellInfo* spellInfo) // Set these spells as belonging to DK
+    {
+        spellInfo->SpellFamilyName = SPELLFAMILY_HUNTER;
+    });
+
+
     // Turn the Tables
     ApplySpellFix({ 51627, 51628, 51629 }, [](SpellInfo* spellInfo)
     {

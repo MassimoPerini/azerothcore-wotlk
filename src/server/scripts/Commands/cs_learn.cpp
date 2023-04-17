@@ -118,6 +118,8 @@ public:
             return true;
         uint32 family = classEntry->spellfamily;
 
+        //sObjectMgr->GetNpcTrainerSpells //not only trainer though
+
         for (uint32 i = 0; i < sSkillLineAbilityStore.GetNumRows(); ++i)
         {
             SkillLineAbilityEntry const* entry = sSkillLineAbilityStore.LookupEntry(i);
@@ -136,9 +138,22 @@ public:
             if (!handler->GetSession()->GetPlayer()->IsSpellFitByClassAndRace(spellInfo->Id))
                 continue;
 
-            // skip other spell families
-            if (spellInfo->SpellFamilyName != family)
+            //check level
+            if (handler->GetSession()->GetPlayer()->GetLevel() < spellInfo->SpellLevel)
                 continue;
+
+            //generic spells learned in each class
+            if (! (spellInfo->Id == 8737 && (family == SPELLFAMILY_HUNTER || family == (SPELLFAMILY_SHAMAN))
+                || spellInfo->Id == 750 && (family == SPELLFAMILY_PALADIN || family == (SPELLFAMILY_WARRIOR))
+                || spellInfo->Id == 3127 && (family == SPELLFAMILY_HUNTER || family == SPELLFAMILY_PALADIN || family == SPELLFAMILY_WARRIOR || family == SPELLFAMILY_ROGUE)
+                || spellInfo->Id == 30798 && (family == SPELLFAMILY_HUNTER || family == SPELLFAMILY_WARRIOR))
+            )
+            {
+                // skip other spell families
+                if (spellInfo->SpellFamilyName != family)
+                    continue;
+
+            }
 
             // skip spells with first rank learned as talent (and all talents then also)
             uint32 firstRank = sSpellMgr->GetFirstSpellInChain(spellInfo->Id);
